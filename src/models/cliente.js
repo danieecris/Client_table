@@ -15,8 +15,18 @@ module.exports = (sequelize, DataTypes) => {
   }
   Cliente.init({
     nome: DataTypes.STRING,
-    email: DataTypes.STRING,
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    },
     telefone: DataTypes.STRING,
+
+    cpf: {
+     type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,

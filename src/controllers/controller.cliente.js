@@ -1,18 +1,22 @@
 const db = require('../models/index.js');
 const Cliente = db.Cliente;
-
+const clienteSchema = require('../validations/clienteValidation')
+const {criarCliente} = require('../services/clienteService')
 // Criar um novo cliente
-const createCliente = async (req, res) => {
-  if (!req.body.nome || !req.body.email || !req.body.telefone) {
-    return res.status(400).json({ error: 'Nome, email e telefone são obrigatórios' });
-    }
-    try {
-    const cliente = await Cliente.create(req.body);
-    res.status(201).json(cliente);
-  } catch (error) {
-    console.error("erro ao criar cliente", error);
-    res.status(500).json({ error: error.message});
-  }
+const createCliente = async (req,res) =>{
+try{
+const {nome, email, telefone, cpf} = req.body;
+const novoCliente = await Cliente.create({
+  nome,
+  email,
+  telefone,
+  cpf
+})
+res.status(201).json(novoCliente);
+}catch(err){
+  return res.status(500).json({error: err.message})
+}
+
 };
 
 const getAllClientes = async (req, res) => {

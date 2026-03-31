@@ -1,24 +1,24 @@
 const db = require('../models/index.js');
 const Pedido = db.Pedido;
+const pedidoSchema = require('../validations/pedidoValidation')
+const {criarPedido} = require('../services/pedidoService')
 
 // Criar um novo pedido
-const createPedido = async (req, res) => {
-    if (!req.body.data || !req.body.valorTotal) {
-        return res.status(400).json({ error: 'Data e valorTotal são obrigatórios' });
-    }
-    try {
-        console.log("REQ BODY:", req.body);
-        const pedido = await Pedido.create({
-        clienteId:req.body.clienteId,
-        data:req.body.data,
-        valorTotal:req.body.valorTotal
-        });
 
-        res.status(201).json(pedido);
-    } catch (error) {
-        console.error("Erro ao criar o pedido", error);
-        res.status(500).json({error: error.message});
+const createPedido = async (req, res) => {
+    try{
+        const {clienteId, data, valorTotal} = req.body;
+        const novoPedido = await Pedido.create({
+            clienteId, 
+            data, 
+            valorTotal
+        })
+        res.status(201).json("O pedido foi criado com sucesso.");   
+    
+    }catch(error){
+        res.status(400).json({ error: 'Erro ao criar pedido' });
     }
+
 }
 
 const getAllPedidos = async (req, res) => {

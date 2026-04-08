@@ -1,4 +1,4 @@
-const {op} = require('sequelize');
+const {Op} = require('sequelize');
 const db = require('../models');
 const Pedido = db.Pedido;
 

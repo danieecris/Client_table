@@ -16,7 +16,7 @@ const createItemPedido = async (req, res) => {
     res.status(201).json(novoItemPedido);
   } catch (err) {
 
-    return res.status(500).jsoin({ "Este cliente ja existe ": err.message })
+    return res.status(500).json({ "Este cliente ja existe ": err.message })
 
   }
 }

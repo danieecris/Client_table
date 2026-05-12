@@ -1,21 +1,23 @@
 const { where } = require('sequelize');
 const db = require('../models/index.js');
 const Produto = db.Produto;
+const produtoSchema = require('../validations/produtoValidation.js');
 
 // Criar um novo produto
 const createProduto = async (req, res) => {
-  if (!req.body.nome || !req.body.preco || !req.body.descricao) {
-    return res.status(400).json({ error: 'Nome, preço e descrição são obrigatórios' });
-  }
-  try {
-    const produto = await Produto.create(req.body);
-    res.status(201).json(produto);
-  } catch (error) {
-    console.error("erro ao criar Produto", error);
-    res.status(500).json({ error: error.message});
-  }
-};
+  try{
+    const{ nome, preco, descricao} = req.body;
+    const novoProduto =  await Produto.create({
+      nome,
+      preco,
+      descricao
+    })
 
+    res.status(200).json(novoProduto)
+  }catch(error){
+    res.status(500).json(error.message)
+  }
+}
 // Obter todos os produtos
 const getAllProdutos = async (req, res) => {
   try {
@@ -66,13 +68,12 @@ const updateProduto = async (req, res) => {
 const deleteProduto = async (req, res) => {
   const { id } = req.params;
   try {
-    const deleted = await Produto.update({
-      ativo: false
-    }, {
-      where: { id }
-    });
+    const affectedRows = await Produto.update(
+      {ativo: false}, 
+      {where: { id }}
+    );
 
-    if (deleted) {
+    if (affectedRows > 0) {
       res.status(204).send();
     } else {
       res.status(404).json({ error: "Produto não encontrado" });

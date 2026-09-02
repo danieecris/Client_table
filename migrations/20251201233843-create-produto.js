@@ -41,3 +41,4 @@ module.exports = {
   }
 };
 
+// pesquisar sobre git flow, git rebase, git merge, git stash, git cherry-pick, git revert, git reset, git log, git diff, git branch, git checkout, git pull, git push, git clone, git fetch, git remote, git tag, git bisect, git blame, git show, git clean.

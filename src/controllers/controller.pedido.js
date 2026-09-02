@@ -13,7 +13,7 @@ const createPedido = async (req, res) => {
             data, 
             valorTotal
         })
-        res.status(201).json("O pedido foi criado com sucesso.");   
+        res.status(201).json(novoPedido);   
     
     }catch(error){
         res.status(400).json({ error: 'Erro ao criar pedido' });

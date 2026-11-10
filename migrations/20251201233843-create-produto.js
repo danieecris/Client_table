@@ -20,6 +20,11 @@ module.exports = {
         type: Sequelize.FLOAT,
         allowNull: false
       },
+      estoque: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+      },
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false

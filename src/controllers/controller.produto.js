@@ -6,14 +6,14 @@ const produtoSchema = require('../validations/produtoValidation.js');
 // Criar um novo produto
 const createProduto = async (req, res) => {
   try{
-    const{ nome, preco, descricao} = req.body;
-    const novoProduto =  await Produto.create({
-      nome,
-      preco,
-      descricao
-    })
+    const{ nome, preco, descricao, estoque } = req.body;
+    const novoProduto = produtoSchema.validate({ nome, preco, descricao, estoque });
+    if (novoProduto.error) {
+      return res.status(400).json({ error: novoProduto.error.details[0].message });
+    }
+    const produtoCriado = await Produto.create({ nome, preco, descricao, estoque });
 
-    res.status(200).json(novoProduto)
+    res.status(200).json(produtoCriado)
   }catch(error){
     res.status(500).json(error.message)
   }

@@ -28,6 +28,13 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.NOW
     },
 
+    estoque:{
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0
+    },
+
+
     updatedAt: {
       type: DataTypes.DATE,
       allowNull: false,

@@ -8,11 +8,9 @@ const {criarPedido} = require('../services/pedidoService')
 const createPedido = async (req, res) => {
     try{
         const {clienteId, data, valorTotal} = req.body;
-        const novoPedido = await Pedido.create({
-            clienteId, 
-            data, 
-            valorTotal
-        })
+        
+        const novoPedido = await criarPedido({ clienteId, data, valorTotal });
+
         res.status(201).json(novoPedido);   
     
     }catch(error){
